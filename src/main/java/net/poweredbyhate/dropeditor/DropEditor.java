@@ -29,9 +29,12 @@ public final class DropEditor extends JavaPlugin implements Listener {
     public HashMap<String, Inventory> drops = new HashMap<>();
     Random r = new Random();
     Boolean deubg = false;
+    Boolean vanillaDrops = true;
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+        vanillaDrops = getConfig().getBoolean("vanillaDrops");
         loadFiles();
         getServer().getPluginManager().registerEvents(this, this);
     }
@@ -89,6 +92,9 @@ public final class DropEditor extends JavaPlugin implements Listener {
                 return;
             }
             ev.getEntity().getWorld().dropItemNaturally(ev.getEntity().getLocation(), is);
+        }
+        if (!vanillaDrops) {
+            ev.getDrops().clear();
         }
     }
 
