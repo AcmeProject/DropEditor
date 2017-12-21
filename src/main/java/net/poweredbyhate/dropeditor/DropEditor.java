@@ -64,16 +64,6 @@ public final class DropEditor extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent ev) {
-        if (ev.getMessage().equalsIgnoreCase("?test")) {
-            debug(drops.keySet().toString());
-        }
-        if (ev.getMessage().startsWith(".")) {
-            ev.getPlayer().openInventory(drops.get(ev.getMessage().replace(".","")));
-        }
-    }
-
-    @EventHandler
     public void onClose(InventoryCloseEvent ev) {
         if (ev.getInventory().getHolder() instanceof MobInv) {
             debug("Closed");
