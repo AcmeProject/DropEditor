@@ -6,7 +6,7 @@
 
     <groupId>net.poweredbyhate</groupId>
     <artifactId>DropEditor</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
     <packaging>jar</packaging>
 
     <name>DropEditor</name>

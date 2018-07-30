@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,6 +38,7 @@ public final class DropEditor extends JavaPlugin implements Listener {
         vanillaDrops = getConfig().getBoolean("vanillaDrops");
         loadFiles();
         getServer().getPluginManager().registerEvents(this, this);
+        getCommand("dropedit").setExecutor(new CommandDropEdit(this));
     }
 
     @EventHandler
@@ -53,13 +55,17 @@ public final class DropEditor extends JavaPlugin implements Listener {
         }
         ev.setCancelled(true);
         String type = ev.getRightClicked().getType().toString();
-        if (!drops.containsKey(type)) {
+        openDropInventory(ev.getPlayer(), type);
+    }
+
+    public void openDropInventory(Player p, String entityType) {
+        if (!drops.containsKey(entityType)) {
             debug("Putting");
-            Inventory newinv = Bukkit.createInventory(new MobInv(this), 54, type);
-            drops.put(type, newinv);
-            ev.getPlayer().openInventory(newinv);
+            Inventory newinv = Bukkit.createInventory(new MobInv(this), 54, entityType);
+            drops.put(entityType, newinv);
+            p.openInventory(newinv);
         } else {
-            ev.getPlayer().openInventory(drops.get(type));
+            p.openInventory(drops.get(entityType));
         }
     }
 
@@ -90,7 +96,7 @@ public final class DropEditor extends JavaPlugin implements Listener {
 
     public void loadFiles() {
         File folder = new File(getDataFolder(), "mobdata");
-        if (folder == null) {
+        if (!folder.exists()) {
             return;
         }
         try {

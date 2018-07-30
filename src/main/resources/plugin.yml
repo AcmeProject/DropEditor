@@ -2,3 +2,5 @@ name: DropEditor
 version: ${project.version}
 main: net.poweredbyhate.dropeditor.DropEditor
 authors: [LaxWasHere]
+commands:
+  dropedit:
