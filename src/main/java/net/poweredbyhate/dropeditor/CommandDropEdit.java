@@ -33,7 +33,7 @@ public class CommandDropEdit implements CommandExecutor {
             if (args[0].equalsIgnoreCase("debug")) {
                 Inventory inv = Bukkit.createInventory(null, 54);
                 for (EntityType e : EntityType.values()) {
-                    ItemStack itemStack = new ItemStack(Material.MONSTER_EGG,  1);
+                    ItemStack itemStack = new ItemStack(Material.LEGACY_MONSTER_EGG,  1);
                     SpawnEggMeta meta = (SpawnEggMeta) itemStack.getItemMeta();
                     try {
                         meta.setSpawnedType(e);
